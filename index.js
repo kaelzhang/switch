@@ -4,7 +4,7 @@ var Switch = module.exports = require('./lib/switch');
 
 // TODO:
 // use plugins as entries ?
-var Switch.Plugins = {
+Switch.Plugins = {
     accordion   : require('./plugins/accordion'),
     autoplay    : require('./plugins/autoplay'),
     carousel    : require('./plugins/carousel'),
@@ -15,3 +15,4 @@ var Switch.Plugins = {
     step        : require('./plugins/step'),
     tabswitch   : require('./plugins/tabswitch')
 };
+

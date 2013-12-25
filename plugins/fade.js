@@ -1,9 +1,11 @@
+'use strict';
+
+
 /**
  * Switch Plugin: fade
  * author  Kael Zhang
  */
- 
-DP.define(['./accordion'], function(K, require){
+
 
 var 
 
@@ -47,6 +49,5 @@ mix(ATTRS.fx.value, ACCORDION_ATTRS.fx.value, false);
 // mix plugin members
 mix(fade, accordion, false);
 
-return fade;
+module.exports = fade;
 
-});

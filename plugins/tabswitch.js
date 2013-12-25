@@ -3,8 +3,8 @@
  * author  Kael Zhang
  */
 
-DP.define({
-    name: 'tabSwitch',
+module.exports = {
+    name: 'tabswitch',
     
     // no plugins will be added after this one
     final_: true,
@@ -32,7 +32,7 @@ DP.define({
             t.fire(EVENTS.COMPLETE_SWITCH);
         });
     }
-});
+};
 
 
 /**

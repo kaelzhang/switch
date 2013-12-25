@@ -1,19 +1,19 @@
+'use strict';
+
+
 /**
  * Switch Plugin: Accordion Effect
  * author  Kael Zhang
  */
- 
-DP.define(['fx/tween', 'fx/easing'], function(K, require){
 
-var Tween = require('fx/tween'),
-	Easing = require('fx/easing'),
+var Tween = require('fx').Tween;
+var Easing = require('fx').Easing;
 	
-    EVENT_ON_ITEM_ACTIVE = 'itemActive',
-    EVENT_ON_ITEM_DEACTIVE = 'itemDeactive',
-    
-    NULL = null;
+var EVENT_ON_ITEM_ACTIVE = 'itemActive';
+var EVENT_ON_ITEM_DEACTIVE = 'itemDeactive';
 
-return {
+
+module.exports = {
 	name: 'accordion',
 	
 	ATTRS: {
@@ -29,8 +29,8 @@ return {
         	value: 'height'
         },
         
-        activeValue: NULL,
-        normalValue: NULL
+        activeValue: null,
+        normalValue: null
     },
     
     init: function(self){
@@ -149,9 +149,7 @@ return {
             t._dealTriggerCls(false, expect);
         });
     }
-}
-
-});
+};
 
 /**
  2011-10-26  Kael:

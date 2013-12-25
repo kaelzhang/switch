@@ -40,7 +40,8 @@
         "dependencies": {
             "util": "~1.0.0",
             "attributes": "~1.1.1",
-            "events": "~1.0.0"
+            "events": "~1.0.0",
+            "clone": "~0.1.11"
         }
     }
 }

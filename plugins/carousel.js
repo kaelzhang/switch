@@ -1,9 +1,10 @@
+'use strict';
+
+
 /**
  * Switch Plugin: Carousel Effect
  * author  Kael Zhang
  */
-
-DP.define(['fx/tween', 'fx/easing'], function(K, require){
     
     
 // check the stage, and remove the extra triggers
@@ -38,11 +39,11 @@ function capitalize(str){
 };
 
 
-var Tween = require('fx/tween'),
-	Easing = require('fx/easing');
+var Tween = require('fx').Tween,
+	Easing = require('fx').Easing;
 
 
-return {
+module.exports = {
     name: 'carousel',
     
     ATTRS: {
@@ -112,8 +113,6 @@ return {
 
     }
 };
-
-});
 
 /**
  change log

@@ -1,4 +1,5 @@
-DP.define(function(K, require){
+'use strict';
+
 
 var 
 
@@ -25,7 +26,7 @@ METHODS_OVERRIDEN = {
 };
 
 
-return {
+module.exports = {
 	name: 'step',
 	
 	ATTRS: {
@@ -96,8 +97,6 @@ return {
 	}
 };
 
-
-});
 
 /**
  

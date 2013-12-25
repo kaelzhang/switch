@@ -1,8 +1,9 @@
+'use strict';
+
+
 /**
  * Switch Plugin: endless
  */
-DP.define(function(K, require){
-
 
 function returnFalse(){
 	return false;
@@ -206,7 +207,7 @@ METHODS_OVERRIDEN = {
 };
 
 
-return {
+module.exports = {
 	name: 'endless',
 	
 	ATTRS: {
@@ -231,9 +232,6 @@ return {
 		});
 	}	
 };
-
-
-});
 
 
 /**

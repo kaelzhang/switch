@@ -1,4 +1,5 @@
-DP.define([], function(){
+'use strict';
+
 
 function getLazyData(container){
 	var data,

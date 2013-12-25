@@ -1,10 +1,13 @@
+'use strict';
+
+
 /**
  * Switch Plugin: Auto play
  * author  Kael Zhang
  */
 
-DP.define({
-    name: 'autoPlay',
+module.exports = {
+    name: 'autoplay',
     final_: true,
     
     ATTRS: {
@@ -84,7 +87,7 @@ DP.define({
             !paused && autoPlayTimer.start();
         });
     }
-});
+};
 
 /**
  

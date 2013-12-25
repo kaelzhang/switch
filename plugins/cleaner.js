@@ -4,9 +4,6 @@
  * temporarily remove unnecessary items away from the container 
  */
 
-DP.define([], function(K, require, exports){
-	
-	
 var
 
 METHODS_OVERRIDDEN = {
@@ -117,10 +114,7 @@ Cleaner = {
 };
 
 
-return Cleaner;
-
-
-});
+module.exports = Cleaner;
 
 
 
