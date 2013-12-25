@@ -6,11 +6,12 @@
  * author  Kael Zhang
  */
 
+var _ = require('underscore');
 
 var 
 
 accordion = require('./accordion'),
-mix = K.mix,
+mix = _.extend,
 fade = {},
 
 STR_ATTRS = 'ATTRS',

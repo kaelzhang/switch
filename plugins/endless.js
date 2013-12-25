@@ -5,6 +5,8 @@
  * Switch Plugin: endless
  */
 
+var _ = require('underscore');
+
 function returnFalse(){
 	return false;
 };
@@ -65,7 +67,7 @@ function realInit(self, EVENTS){
 	self.rightItems = self.length - stage - self.leftItems;
 	
 	// override methods
-	K.mix(self, METHODS_OVERRIDEN);
+	_.extend(self, METHODS_OVERRIDEN);
 	
 	self.on(EVENTS.NEXT, function(){
 		var self = this,

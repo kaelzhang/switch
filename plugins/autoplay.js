@@ -6,6 +6,9 @@
  * author  Kael Zhang
  */
 
+var _       = require('underscore');
+var delay   = require('../lib/delay');
+
 module.exports = {
     name: 'autoplay',
     final_: true,
@@ -54,11 +57,11 @@ module.exports = {
         self.on(EVENTS.AFTER_INIT, function(){
             var t = self;
 
-            autoPlayTimer = DP.delay(autoplay, t.get('interval'));
+            autoPlayTimer = delay(autoplay, t.get('interval'));
             
             // TODO
             // add queue support
-            DP.mix(t, {
+            _.extend(t, {
 				pause: pause,
 				resume: resume
 			});

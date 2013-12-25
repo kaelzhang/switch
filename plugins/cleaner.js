@@ -4,6 +4,8 @@
  * temporarily remove unnecessary items away from the container 
  */
 
+var _ = require('underscore');
+
 var
 
 METHODS_OVERRIDDEN = {
@@ -100,7 +102,7 @@ Cleaner = {
             var self = this,
                 activeIndex = self.activeIndex;
 		
-			K.mix(self, METHODS_OVERRIDDEN);
+			_.extend(self, METHODS_OVERRIDDEN);
 			
 			self.cleanLeft = activeIndex;
 			self.cleanRight = activeIndex + self.get('stage') - 1;

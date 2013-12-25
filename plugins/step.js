@@ -1,6 +1,9 @@
 'use strict';
 
 
+var util = require('util');
+var _    = require('underscore');
+
 var 
 
 ITEM_RENDERER = 'itemRenderer',
@@ -39,7 +42,7 @@ module.exports = {
 		itemRenderer: {
 		
 			// type {function(index, callback)}
-			validator: K.isFunction,
+			validator: util.isFunction,
 			setter: function(v){
 				return this[ITEM_RENDERER] = v;
 			}
@@ -47,12 +50,12 @@ module.exports = {
 		
 		data: {
             value: [],
-            validator: K.isArray
+            validator: util.isArray
 		},
 		
 		dataLength: {
             value: 0,
-            validator: K.isNumber,
+            validator: util.isNumber,
             getter: function(v){
                 return v || this.get('data').length;
             }
@@ -64,7 +67,7 @@ module.exports = {
 	init: function(self){
 		var EVENTS = self.get('EVENTS');
 		
-		self.on(EVENTS.BEFORE_SWITCH, function(){
+		self.on('beforeSwitch', function(){
 			var self = this,
 				move = self.get('stage'),
 				length = self.length,
@@ -81,13 +84,13 @@ module.exports = {
 			}
 		});
 		
-		self.on(EVENTS.BEFORE_INIT, function(){
+		self.on('beforeInit', function(){
 		
 			// override
-			K.mix(this, METHODS_OVERRIDEN);
+			_.extend(this, METHODS_OVERRIDEN);
 		});
 	
-		self.on(EVENTS.AFTER_INIT, function(){
+		self.on('afterInit', function(){
 			var self = this,
 				length = self.originLength;
 			

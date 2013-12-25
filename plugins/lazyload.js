@@ -1,5 +1,6 @@
 'use strict';
 
+var $ = require('jquery');
 
 function getLazyData(container){
 	var data,

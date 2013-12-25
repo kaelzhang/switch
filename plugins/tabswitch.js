@@ -10,10 +10,9 @@ module.exports = {
     final_: true,
 
     init: function(self){
-    	var EVENTS = self.get('EVENTS'),
-    		ITEM_ON_CLS = 'itemOnCls';
+    	var ITEM_ON_CLS = 'itemOnCls';
     
-        self.on(EVENTS.BEFORE_SWITCH, function(){
+        self.on('beforeSwitch', function(){
             var t = this,
                 activeItem = t._getItem(t.activeIndex);
                 
@@ -21,7 +20,7 @@ module.exports = {
             t._dealTriggerCls(true);
         });
 
-        self.on(EVENTS.ON_SWITCH, function(){
+        self.on('onSwitch', function(){
             var t = this,
                 active = t.activeIndex = t.expectIndex,
                 activeItem = t._getItem(active);
@@ -29,7 +28,7 @@ module.exports = {
             activeItem && activeItem.addClass(t.get(ITEM_ON_CLS));
             t._dealTriggerCls(false, active);
             
-            t.fire(EVENTS.COMPLETE_SWITCH);
+            t.emit('completeSwitch');
         });
     }
 };
