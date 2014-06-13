@@ -8,35 +8,33 @@
 
 var _ = require('underscore');
 
-var 
+var accordion = require('./accordion');
+var mix = _.extend;
+var fade = {};
 
-accordion = require('./accordion'),
-mix = _.extend,
-fade = {},
+var STR_ATTRS = 'ATTRS';
 
-STR_ATTRS = 'ATTRS',
+var ACCORDION_ATTRS = accordion[STR_ATTRS];
 
-ACCORDION_ATTRS = accordion[STR_ATTRS],	
-	
-ATTRS = {
-	property: {
-		readOnly: true,
-		value: 'opacity'
-	},
-	
-	activeValue: {
-		value: 1
-	},
-	
-	normalValue: {
-		value: 0
-	},
-	
-	fx: {
-		value: {
-			duration: 1000
-		}
-	}
+var ATTRS = {
+  property: {
+    readOnly: true,
+    value: 'opacity'
+  },
+
+  activeValue: {
+    value: 1
+  },
+
+  normalValue: {
+    value: 0
+  },
+
+  fx: {
+    value: {
+      duration: 1000
+    }
+  }
 };
 
 fade[STR_ATTRS] = ATTRS;
@@ -51,4 +49,3 @@ mix(ATTRS.fx.value, ACCORDION_ATTRS.fx.value, false);
 mix(fade, accordion, false);
 
 module.exports = fade;
-

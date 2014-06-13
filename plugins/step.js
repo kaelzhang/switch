@@ -2,102 +2,100 @@
 
 
 var util = require('util');
-var _    = require('underscore');
+var _ = require('underscore');
 
-var 
+var ITEM_RENDERER = 'itemRenderer';
 
-ITEM_RENDERER = 'itemRenderer',
+var METHODS_OVERRIDEN = {
 
-METHODS_OVERRIDEN = {
+  /**
+   * override the _getItem method
+   * so it could generate unexisted items
+   * @param {number} index
+   * @param {boolean=} dontSetPos if true, _getItem method will not set the position of newly created item
+   */
+  _getItem: function(index, dontSetPos) {
+    var self = this,
+      item = self.items[index];
 
-	/**
-	 * override the _getItem method
-	 * so it could generate unexisted items
-	 * @param {number} index
-	 * @param {boolean=} dontSetPos if true, _getItem method will not set the position of newly created item
-	 */
-	_getItem: function(index, dontSetPos){
-		var self = this,
-			item = self.items[index];
-			
-		if(!item){
-			item = self.items[index] = self[ITEM_RENDERER].call(self, index);
-		}
-		
-		return self._plantItem(item, index, dontSetPos);
-	}
+    if (!item) {
+      item = self.items[index] = self[ITEM_RENDERER].call(self, index);
+    }
+
+    return self._plantItem(item, index, dontSetPos);
+  }
 };
 
 
 module.exports = {
-	name: 'step',
-	
-	ATTRS: {
-		// async: false,
-		
-		/**
-		 * method to render the Neuron/DOM instance of the item of expected index
-		 * @returns {string} the Neuron/DOM instance of the item with <index> index
-		 */
-		itemRenderer: {
-		
-			// type {function(index, callback)}
-			validator: util.isFunction,
-			setter: function(v){
-				return this[ITEM_RENDERER] = v;
-			}
-		},
-		
-		data: {
-            value: [],
-            validator: util.isArray
-		},
-		
-		dataLength: {
-            value: 0,
-            validator: util.isNumber,
-            getter: function(v){
-                return v || this.get('data').length;
-            }
-		},
-		
-		itemSpace: null
-	},
-	
-	init: function(self){
-		var EVENTS = self.get('EVENTS');
-		
-		self.on('beforeSwitch', function(){
-			var self = this,
-				move = self.get('stage'),
-				length = self.length,
-				
-				now = self.expectIndex,
-				end = now + move,
-				index;			
+  name: 'step',
 
-            // check the existance of the items in the expected page which the switcher is switching to
-			while(now < end){
-				index = self._limit(now ++);
-				
-				index >= self.originLength && self._getItem(index);
-			}
-		});
-		
-		self.on('beforeInit', function(){
-		
-			// override
-			_.extend(this, METHODS_OVERRIDEN);
-		});
-	
-		self.on('afterInit', function(){
-			var self = this,
-				length = self.originLength;
-			
-			// set fake length value
-			self._itemData(length + self.get('dataLength'));
-		});
-	}
+  ATTRS: {
+    // async: false,
+
+    /**
+     * method to render the Neuron/DOM instance of the item of expected index
+     * @returns {string} the Neuron/DOM instance of the item with <index> index
+     */
+    itemRenderer: {
+
+      // type {function(index, callback)}
+      validator: util.isFunction,
+      setter: function(v) {
+        return this[ITEM_RENDERER] = v;
+      }
+    },
+
+    data: {
+      value: [],
+      validator: util.isArray
+    },
+
+    dataLength: {
+      value: 0,
+      validator: util.isNumber,
+      getter: function(v) {
+        return v || this.get('data').length;
+      }
+    },
+
+    itemSpace: null
+  },
+
+  init: function(self) {
+    var EVENTS = self.get('EVENTS');
+
+    self.on('beforeSwitch', function() {
+      var self = this,
+        move = self.get('stage'),
+        length = self.length,
+
+        now = self.expectIndex,
+        end = now + move,
+        index;
+
+      // check the existance of the items in the expected page which the switcher is switching to
+      while (now < end) {
+        index = self._limit(now++);
+
+        index >= self.originLength && self._getItem(index);
+      }
+    });
+
+    self.on('beforeInit', function() {
+
+      // override
+      _.extend(this, METHODS_OVERRIDEN);
+    });
+
+    self.on('afterInit', function() {
+      var self = this,
+        length = self.originLength;
+
+      // set fake length value
+      self._itemData(length + self.get('dataLength'));
+    });
+  }
 };
 
 

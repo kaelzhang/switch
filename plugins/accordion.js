@@ -8,118 +8,118 @@
 
 var Tween = require('fx').Tween;
 var Easing = require('fx').Easing;
-	
+
 var EVENT_ON_ITEM_ACTIVE = 'itemActive';
 var EVENT_ON_ITEM_DEACTIVE = 'itemDeactive';
 
 
 module.exports = {
-	name: 'accordion',
-	
-	ATTRS: {
-        fx: {
-        	value: {
-	            link: 'cancel',
-	            transition: Easing.Cubic.easeOut,
-	            duration:200
-	        }
-        },
-        
-        property: {
-        	value: 'height'
-        },
-        
-        activeValue: null,
-        normalValue: null
+  name: 'accordion',
+
+  ATTRS: {
+    fx: {
+      value: {
+        link: 'cancel',
+        transition: Easing.Cubic.easeOut,
+        duration: 200
+      }
     },
-    
-    init: function(self){
-    
-    	// get the fx of the items, 
-    	// create new fx if not exists
-    	function getFx(element, offset){
-    		var effect = element.data(EFFECT_KEY);
-    		
-    		if(!effect){
-    			effect = new Tween(element, fx).on('complete', function(){
-    				var cb = on_complete[offset];
-    				cb && cb();
-    			});
-    			
-    			element.data(EFFECT_KEY, effect);
-    		}
-    		
-    		return effect;
-    	};
-    	
-    	function setFxCallback(active, expect){
-    		delete on_complete[active];
-    		delete on_complete[expect];
-    		
-    		var t = self;
-    	
-    		on_complete[active] = function(){
-    			t._getItem(active).removeClass(active_cls);
-    			t.fire(EVENT_ON_ITEM_DEACTIVE, [active]);
-    		};
-    		
-    		on_complete[expect] = function(){
-    			t._getItem(expect).addClass(active_cls);
-    			t.fire(EVENT_ON_ITEM_ACTIVE, [expect]);
-    			t.fire(EVENTS.COMPLETE_SWITCH);
-    		};
-    	};
-    	
-    	function chk(o){
-    		return o || o === 0;
-    	};
-    	
-    	var EFFECT_KEY = '_s_accordion',
-    		EVENTS = self.get('EVENTS'),
-    		on_complete = [],
-    		fx,
-    		active_cls,
-    		active_value,
-    		normal_value;
-    		
 
-        self.on(EVENTS.AFTER_INIT, function(){
-            var t = self,
-                active = t.activeIndex,
-                property,
-                _active_value = t.get('activeValue'),
-                _normal_value = t.get('normalValue');
+    property: {
+      value: 'height'
+    },
 
-            fx = t.get('fx');
-            active_cls = t.get('itemOnCls');
-                                
-            if(!fx.property){
-	            fx.property = t.get('property');
-	        };
-	        
-	        property = fx.property;
-	        
-	       	// if active_value and normal_value is not specified
-	       	// fetch them by the computed styles of the origin items
-	        active_value = chk(_active_value) ? _active_value : t._getItem(active).css(property);
-	        normal_value = chk(_normal_value) ? _normal_value : t._getItem( t._limit(active + 1) ).css(property);
-        });
-        
-        self.on(EVENTS.BEFORE_SWITCH, function(){
-            this._dealTriggerCls(true);
+    activeValue: null,
+    normalValue: null
+  },
+
+  init: function(self) {
+
+    // get the fx of the items, 
+    // create new fx if not exists
+    function getFx(element, offset) {
+      var effect = element.data(EFFECT_KEY);
+
+      if (!effect) {
+        effect = new Tween(element, fx).on('complete', function() {
+          var cb = on_complete[offset];
+          cb && cb();
         });
 
-        self.on(EVENTS.ON_SWITCH, function(){
-            var t = this,
-                active = t.activeIndex,
-                expect = t.expectIndex;
-                
-            setFxCallback(active, expect);
-            getFx(t._getItem(active), active).start(normal_value);
-            getFx(t._getItem(expect), expect).start(active_value);
-            
-            
-/**
+        element.data(EFFECT_KEY, effect);
+      }
+
+      return effect;
+    };
+
+    function setFxCallback(active, expect) {
+      delete on_complete[active];
+      delete on_complete[expect];
+
+      var t = self;
+
+      on_complete[active] = function() {
+        t._getItem(active).removeClass(active_cls);
+        t.fire(EVENT_ON_ITEM_DEACTIVE, [active]);
+      };
+
+      on_complete[expect] = function() {
+        t._getItem(expect).addClass(active_cls);
+        t.fire(EVENT_ON_ITEM_ACTIVE, [expect]);
+        t.fire(EVENTS.COMPLETE_SWITCH);
+      };
+    };
+
+    function chk(o) {
+      return o || o === 0;
+    };
+
+    var EFFECT_KEY = '_s_accordion',
+      EVENTS = self.get('EVENTS'),
+      on_complete = [],
+      fx,
+      active_cls,
+      active_value,
+      normal_value;
+
+
+    self.on(EVENTS.AFTER_INIT, function() {
+      var t = self,
+        active = t.activeIndex,
+        property,
+        _active_value = t.get('activeValue'),
+        _normal_value = t.get('normalValue');
+
+      fx = t.get('fx');
+      active_cls = t.get('itemOnCls');
+
+      if (!fx.property) {
+        fx.property = t.get('property');
+      };
+
+      property = fx.property;
+
+      // if active_value and normal_value is not specified
+      // fetch them by the computed styles of the origin items
+      active_value = chk(_active_value) ? _active_value : t._getItem(active).css(property);
+      normal_value = chk(_normal_value) ? _normal_value : t._getItem(t._limit(active + 1)).css(property);
+    });
+
+    self.on(EVENTS.BEFORE_SWITCH, function() {
+      this._dealTriggerCls(true);
+    });
+
+    self.on(EVENTS.ON_SWITCH, function() {
+      var t = this,
+        active = t.activeIndex,
+        expect = t.expectIndex;
+
+      setFxCallback(active, expect);
+      getFx(t._getItem(active), active).start(normal_value);
+      getFx(t._getItem(expect), expect).start(active_value);
+
+
+      /**
  a: active,  e: expect,  n: normal, normalSize: 0, activeValue: 3;  'e' will be activated
  ////////////////////////////////////////////////////////////////////////////////////////////
  
@@ -142,13 +142,13 @@ module.exports = {
 
  ////////////////////////////////////////////////////////////////////////////////////////////
  */
- 			// so, as it explained above, set expectIndex as activeIndex immediately after fx started
-            t.activeIndex = expect;
-            t._dealNavs();
-            
-            t._dealTriggerCls(false, expect);
-        });
-    }
+      // so, as it explained above, set expectIndex as activeIndex immediately after fx started
+      t.activeIndex = expect;
+      t._dealNavs();
+
+      t._dealTriggerCls(false, expect);
+    });
+  }
 };
 
 /**
@@ -159,6 +159,3 @@ module.exports = {
  A. html santitizer for horizontal accordion, making the content of each item stable and no deformation during switching
  
  */
- 
- 
- 

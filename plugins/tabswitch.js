@@ -4,33 +4,33 @@
  */
 
 module.exports = {
-    name: 'tabswitch',
-    
-    // no plugins will be added after this one
-    final_: true,
+  name: 'tabswitch',
 
-    init: function(self){
-    	var ITEM_ON_CLS = 'itemOnCls';
-    
-        self.on('beforeSwitch', function(){
-            var t = this,
-                activeItem = t._getItem(t.activeIndex);
-                
-            activeItem && activeItem.removeClass(t.get(ITEM_ON_CLS));
-            t._dealTriggerCls(true);
-        });
+  // no plugins will be added after this one
+  final_: true,
 
-        self.on('onSwitch', function(){
-            var t = this,
-                active = t.activeIndex = t.expectIndex,
-                activeItem = t._getItem(active);
-                
-            activeItem && activeItem.addClass(t.get(ITEM_ON_CLS));
-            t._dealTriggerCls(false, active);
-            
-            t.emit('completeSwitch');
-        });
-    }
+  init: function(self) {
+    var ITEM_ON_CLS = 'itemOnCls';
+
+    self.on('beforeSwitch', function() {
+      var t = this,
+        activeItem = t._getItem(t.activeIndex);
+
+      activeItem && activeItem.removeClass(t.get(ITEM_ON_CLS));
+      t._dealTriggerCls(true);
+    });
+
+    self.on('onSwitch', function() {
+      var t = this,
+        active = t.activeIndex = t.expectIndex,
+        activeItem = t._getItem(active);
+
+      activeItem && activeItem.addClass(t.get(ITEM_ON_CLS));
+      t._dealTriggerCls(false, active);
+
+      t.emit('completeSwitch');
+    });
+  }
 };
 
 
