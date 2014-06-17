@@ -23,7 +23,7 @@ function checkStage(self) {
 
     // in order to calculate positions and offsets precisely, set container as offsetParent of the switching items
     // never use this._getItem() method before real switching
-    if (ghostItem[0].offsetParent !== self.container[0] {
+    if (ghostItem[0].offsetParent !== self.container[0]) {
       self.container.css('position', 'relative');
     }
 

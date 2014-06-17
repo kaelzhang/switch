@@ -21,10 +21,9 @@
     }
   ],
   "engines": {
-    "node": ">= 0.6.0"
   },
   "scripts": {
-    "prebuild": "./node_modules/.bin/gulp"
+    "// prebuild": "./node_modules/.bin/gulp"
   },
   "keywords": [
     "switch",
