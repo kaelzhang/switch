@@ -1,3 +1,6 @@
+/test/css/
+/test/*.html
+
 # Cortex
 build/
 .cortex/
