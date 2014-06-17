@@ -4,7 +4,7 @@ var $ = require('jquery');
 
 function getLazyData(container) {
   var data,
-    tagName = container.el(0).tagName;
+    tagName = container[0].tagName;
 
   if (/textarea/i.test(tagName)) {
     data = container.val();

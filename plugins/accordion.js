@@ -60,13 +60,13 @@ module.exports = {
 
       on_complete[active] = function() {
         t._getItem(active).removeClass(active_cls);
-        t.fire(EVENT_ON_ITEM_DEACTIVE, [active]);
+        t.emit(EVENT_ON_ITEM_DEACTIVE, active);
       };
 
       on_complete[expect] = function() {
         t._getItem(expect).addClass(active_cls);
-        t.fire(EVENT_ON_ITEM_ACTIVE, [expect]);
-        t.fire(EVENTS.COMPLETE_SWITCH);
+        t.emit(EVENT_ON_ITEM_ACTIVE, expect);
+        t.emit(EVENTS.COMPLETE_SWITCH);
       };
     };
 

@@ -23,7 +23,7 @@ function checkStage(self) {
 
     // in order to calculate positions and offsets precisely, set container as offsetParent of the switching items
     // never use this._getItem() method before real switching
-    if (ghostItem.el(0).offsetParent !== self.container.el(0)) {
+    if (ghostItem[0].offsetParent !== self.container[0] {
       self.container.css('position', 'relative');
     }
 
@@ -83,7 +83,7 @@ module.exports = {
       };
 
       t.effect = new Tween(container, fx).on('complete', function() {
-        t.fire(EVENTS.COMPLETE_SWITCH);
+        t.emit(EVENTS.COMPLETE_SWITCH);
       });
 
       // there's a bug about MooTools Fx: the container's position must be specified before you use Fx,
@@ -106,7 +106,7 @@ module.exports = {
       t._dealNavs();
 
       // start animation
-      activeItem && t.effect.start(-activeItem.el(0)[offset_direction]);
+      activeItem && t.effect.start(-activeItem[0][offset_direction]);
 
       t._dealTriggerCls(false, active);
     });
