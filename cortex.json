@@ -26,11 +26,22 @@
   "scripts": {
     "test": "make test"
   },
-  "keywords": [],
+  "keywords": [
+    "switch",
+    "switchable",
+    "carousels",
+    "accordions",
+    "tab-switch",
+    "fade-in",
+    "fade-out"
+  ],
   "dependencies": {
-    "nib": "~1.0.2",
-    "gulp": "~3.8.0",
-    "gulp-jade": "~0.5.0",
-    "gulp-stylus": "~1.0.2"
+    "util": "~1.0.4",
+    "attributes": "~1.4.0",
+    "events": "~1.0.5",
+    "clone": "~0.1.12",
+    "underscore": "~1.5.3",
+    "jquery": "~1.9.2",
+    "fx": "~2.0.0"
   }
 }
