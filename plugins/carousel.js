@@ -10,11 +10,13 @@
 // check the stage, and remove the extra triggers
 // @method checkStage
 // @param t {Object} DP.Switch instance
+var $ = require('jquery');
+
 function checkStage(self) {
   if (self.triggers) {
     var triggerlength = self.triggers.length,
       i,
-      ghostItem = K.DOM.create('div').inject(self.container);
+      ghostItem = $('<div></div>').appendTo(self.container);
 
     // if triggers are more than pages，removing redundant ones
     for (i = self.pages; i < triggerlength; ++i) {
@@ -27,7 +29,7 @@ function checkStage(self) {
       self.container.css('position', 'relative');
     }
 
-    ghostItem.destroy();
+    ghostItem.remove();
   }
 };
 
@@ -39,8 +41,8 @@ function capitalize(str) {
 };
 
 
-var Tween = require('fx').Tween,
-  Easing = require('fx').Easing;
+var Tween = require('fx'),
+  Transitions = require('fx').Transitions;
 
 
 module.exports = {
@@ -50,7 +52,7 @@ module.exports = {
     fx: {
       value: {
         link: 'cancel',
-        transition: Easing.Cubic.easeOut,
+        transition: Transitions.Pow.easeOut,
         duration: 300
       }
     },
@@ -85,6 +87,9 @@ module.exports = {
       t.effect = new Tween(container, fx).on('complete', function() {
         t.emit(EVENTS.COMPLETE_SWITCH);
       });
+      
+
+
 
       // there's a bug about MooTools Fx: the container's position must be specified before you use Fx,
       // or the first Fx will have no animation
@@ -106,7 +111,7 @@ module.exports = {
       t._dealNavs();
 
       // start animation
-      activeItem && t.effect.start(-activeItem[0][offset_direction]);
+      activeItem && t.effect.start(direction, -activeItem[0][offset_direction]);
 
       t._dealTriggerCls(false, active);
     });
